@@ -6,9 +6,11 @@
     "axios": "^0.15.3",
     "connect-ensure-login": "^0.1.1",
     "dotenv": "^2.0.0",
+    "elo-rank": "^1.0.0",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "morgan": "^1.8.1",
+    "nedb": "^1.8.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "react": "^15.4.2",
@@ -59,7 +61,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "dev:server": "PORT=9001 NODE_ENV=development node index"
+    "dev:server": "PORT=9001 NODE_ENV=development node index",
+    "dev:ranking": "NODE_ENV=development node server/ranking"
   },
   "jest": {
     "collectCoverageFrom": [
