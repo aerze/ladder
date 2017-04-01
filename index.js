@@ -6,7 +6,7 @@ require('babel-core/register')({
 require('dotenv').config();
 
 const port = process.env.PORT || 8080;
-const app = require('./app').default;
+const app = require('./server/app').default;
 
 app.listen(port, (error) => {
   if (!error) {

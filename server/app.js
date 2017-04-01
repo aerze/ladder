@@ -6,6 +6,9 @@ import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy }  from 'passport-google-oauth';
 import { ensureLoggedIn } from 'connect-ensure-login';
 
+import enableCors from './enableCors';
+import players from './players';
+
 const {
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
@@ -77,6 +80,8 @@ app.get('/get-out', (req, res) => res.send('And stay out'));
 
 // app.use('/', ensureLoggedIn('/auth/google'), Express.static(path.join(__dirname, 'build')));
 app.use('/', Express.static(path.join(__dirname, 'build')));
+app.use('/api', enableCors);
+app.use('/api/players', players);
 
 
 export default app;
