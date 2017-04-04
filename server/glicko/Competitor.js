@@ -10,6 +10,9 @@ export default class Competitor {
    * @param {Date} lastUpdated
    */
   constructor(name, rating = DEFAULT_RATING, ratingsDev = DEFAULT_RD, lastUpdated = new Date()) {
+    checkNaN('this.rating', rating);
+    checkNaN('this.ratingsDev', ratingsDev);
+
     this.name = name;
     this.rating = rating;
     this.ratingsDev = ratingsDev;
@@ -50,9 +53,10 @@ export default class Competitor {
    * @param {Number} d2 
    */
   updatedRating(competitors, results, d2) {
+    console.log('updatedRating',  results);
     const { rating, ratingsDev } = this;
     const ratingsDev2 = pow(ratingsDev, 2);
-
+    checkNaN('updatedRating.rating', rating);
 
     /**
      * 
@@ -67,12 +71,15 @@ export default class Competitor {
       const G = g(comp.ratingsDev);
       const ES = es(rating, comp);
       const score = SCORE_MAP[result];
+      console.log(score, result);
       return G * (score - ES);
     };
 
     const multiplier = (Q / (1 / ratingsDev2 + (1 / d2)));
     const summands = competitors.map((comp, i) => summand(comp, results[i]));
-    
+    checkNaN('updatedRating.multiplier', multiplier);
+    console.log('updatedRating.summands', summands);
+
     return rating + (multiplier * Σ(summands));
   }
 
@@ -117,6 +124,9 @@ export default class Competitor {
       const rating = this.updatedRating(others, results, d2)
       const ratingsDev = this.updatedRatingsDev(d2);
       const lastUpdated = this.lastUpdated;
+      checkNaN('updatedMetrics.rating', rating);
+      checkNaN('updatedMetrics.ratingsDev', ratingsDev);
+      
       return { rating, ratingsDev, lastUpdated };
     } else {
       const { rating, ratingsDev, lastUpdated } = this;

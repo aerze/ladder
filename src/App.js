@@ -5,59 +5,9 @@ import {
   Link
 } from 'react-router-dom';
 
-import './App.css';
-import logo from './logo.svg';
 import Nav from './components/Nav';
 
-import RankPage from './containers/RankPage';
-
-
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-);
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-);
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-);
-
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
-    <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-);
-
+import Leaderboard from './containers/Leaderboard';
 
 class App extends Component {
   render() {
@@ -66,9 +16,11 @@ class App extends Component {
         <div>
           <Nav/>
 
-          <Route exact path="/" component={RankPage}/>
-          <Route path="/about" component={About}/>
-          <Route path="/topics" component={Topics}/>
+          <Route path="/" component={Leaderboard}/>
+          <Route path="/players" component={Leaderboard}/>
+          <Route path="/players/create" component={Leaderboard}/>
+          <Route path="/matches" component={Leaderboard}/>
+          <Route path="/matches/create" component={Leaderboard}/>
         </div>
       </Router>
     );

@@ -72,6 +72,7 @@ export default class Match {
 
     return {
       date,
+      applied,
       playerNames,
       playerResult,
       opponentResult,

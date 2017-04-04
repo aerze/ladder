@@ -1,34 +1,40 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Players from '../api/Players';
 
+import PlayerCard from '../components/PlayerCard';
 import Error from '../components/Error';
 
-export default class RankPage extends Component {
+export default class Leaderboard extends Component {
   constructor() {
     super();
 
     this.state = {
-      users: [],
+      players: [],
       error: null
     };
+  }
+
+  sortRank(players) {
+    return [...players].sort((p1, p2) => {
+      return p1.rating - p2.rating;
+    });
   }
 
   componentWillMount() {
     Players
       .getPlayers()
-      .then(users => this.setState({ users }))
+      .then(players => this.setState({ players: this.sortRank(players) }))
       .catch(error => this.setState({ error }));
   }
 
   render() {
-    const { users, error } = this.state;
+    const { players, error } = this.state;
     
     if (error) return <Error error={error} />;
 
     return (
       <div>    
-        { users.map(user => (<li> User: { user } </li> )) }
+        { players.map(player => <PlayerCard key={player.name} {...player} />) }
       </div>
     );
   }

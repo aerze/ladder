@@ -1,5 +1,5 @@
-import RankedCompetitor from '../ranking/Competitor';
-import RankedMatch from '../ranking/Match';
+import RankedCompetitor from '../glicko/Competitor';
+import RankedMatch from '../glicko/Match';
 import { PromiseDatastore } from '../datastore';
 
 export default class Match {
@@ -34,12 +34,12 @@ export default class Match {
 
   find(requestQuery) {
     const query = {...requestQuery };
+    
     if (requestQuery.id) {
       query._id = requestQuery.id;
       delete query.id;
     }
-
-    console.log(query);
+    
     return this.matches.find(query);
   }
 

@@ -1,4 +1,4 @@
-import RankedCompetitor from '../ranking/Competitor';
+import RankedCompetitor from '../glicko/Competitor';
 import { PromiseDatastore } from '../datastore';
 
 export default class Player {
@@ -22,6 +22,17 @@ export default class Player {
 
   update(name, updateQuery) {
     return this.players.update({ name }, { $set: { ...updateQuery } });
+  }
+  
+  find(requestQuery) {
+    const query = {...requestQuery };
+
+    if (requestQuery.id) {
+      query._id = requestQuery.id;
+      delete query.id;
+    }
+
+    return this.players.find(query);
   }
 
   read(name) {

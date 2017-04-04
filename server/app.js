@@ -12,6 +12,7 @@ import passport, { routes as authRoutes } from './passport';
 import enableCors from './enableCors';
 import playerRoutes from './player';
 import matchRoutes from './match';
+import rankingRoutes from './ranking';
 
 const { COOKIE_SECRET } = process.env;
 
@@ -31,5 +32,6 @@ app.use('/api', enableCors);
 authRoutes(app);
 playerRoutes(app, db);
 matchRoutes(app, db);
+rankingRoutes(app, db);
 
 export default app;

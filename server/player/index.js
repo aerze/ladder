@@ -13,6 +13,9 @@ export default function playerRoutes(app, db) {
   const handleResponse = (res, promise) => promise
     .then(data => res.json({ data }))
     .catch(error => res.status(500).json({ error }));
+  
+  router.route('/api/players/')
+    .get((req, res) => handleResponse(res, player.find(req.query)))
 
   router.route('/api/player/:name')
     .get((req, res) => handleResponse(res, player.read(req.params.name)))

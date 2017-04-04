@@ -1,12 +1,26 @@
-require('babel-core/register')({
-  presets: ['es2015', 'react']
-});
+import { Router } from 'express';
+import Ranking from './Ranking';
 
-const main = require('./main').default;
-const Comp = require('./Competitor').default;
+/**
+ * 
+ * @param {Express} app 
+ * @param {Object} db 
+ */
+export default function playerRoutes(app, db) {
+  const router = new Router();
+  const ranking = new Ranking(db);
 
-console.log('MAIN:');
-main();
-// const comp = new Comp('Gus');
-// console.log(comp);
-console.log('MAIN: END');
+  const handleResponse = (res, promise) => promise
+    .then(data => res.json({ data }))
+    .catch(error => {
+      console.error(error);
+      console.dir(error);
+      return res.status(500).json({ error })
+    });
+
+  router.route('/api/ranking')
+    .get((req, res) => handleResponse(res, ranking.update(req.body)))
+  
+  
+  app.use(router);
+};

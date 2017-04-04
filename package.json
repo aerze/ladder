@@ -64,7 +64,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "dev:server": "PORT=9001 NODE_ENV=development node index",
-    "dev:ranking": "NODE_ENV=development node server/ranking"
+    "dev:ranking": "NODE_ENV=development node server/glicko"
   },
   "jest": {
     "collectCoverageFrom": [
