@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# nedb filename
+/datastore
+
 # dependencies
 /node_modules
 

@@ -10,7 +10,7 @@ export default class Match {
    * @param {String} playerResult 
    */
   constructor(date, player, opponent, playerResult) {
-    this.date = date.getTime();
+    this.date = date.getTime ? date.getTime() : date;
     this.player = player;
     this.opponent = opponent;
     this.applied = false;
@@ -58,5 +58,25 @@ export default class Match {
       result,
       date
     }
+  }
+
+  toJSON() {
+    const {
+      date,
+      player,
+      opponent,
+      applied,
+      playerResult,
+      opponentResult,
+      playerNames } = this;
+
+    return {
+      date,
+      playerNames,
+      playerResult,
+      opponentResult,
+      player: player.toJSON(),
+      opponent: opponent.toJSON(),
+    };
   }
 }

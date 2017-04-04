@@ -13,7 +13,7 @@ export default class Competitor {
     this.name = name;
     this.rating = rating;
     this.ratingsDev = ratingsDev;
-    this.lastUpdated = lastUpdated.getTime();
+    this.lastUpdated = lastUpdated.getTime ? lastUpdated.getTime() : lastUpdated;
   }
 
 
@@ -138,5 +138,10 @@ export default class Competitor {
   print() {
     const { name, rating, ratingsDev, lastUpdated } = this;
     return `${name}\n  rating:${rating}\n  deviation:${ratingsDev}\n  last updated:${lastUpdated.toLocaleTimeString()};${lastUpdated.toLocaleDateString()}`;
+  }
+
+  toJSON() {
+    const { name, rating, ratingsDev, lastUpdated } = this;
+    return { name, rating, ratingsDev, lastUpdated };
   }
 }
