@@ -1,4 +1,3 @@
-import { SCORE_MAP } from './math';
 import Competitor from './Competitor';
 
 export default class Match {
@@ -51,7 +50,7 @@ export default class Match {
     const isPlayer = (player.name === competitorName);
 
     const competitor = (isPlayer) ? opponent: player;
-    const result = (isPlayer) ? opponentResult: playerResult;
+    const result = (isPlayer) ? playerResult: opponentResult;
 
     return {
       competitor,

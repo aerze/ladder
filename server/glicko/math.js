@@ -21,7 +21,7 @@ const DECAY_PERIODS = 730; // Assume the takes 2 years for info to decay
 export const CONSTANT = sqrt((DEFAULT_RD_SQ - TYPICAL_PLAYER_RD_SQ) / DECAY_PERIODS);
 
 export function checkNaN (label, x) {
-  console.log(label, x);
+  // console.log(label, x);
   if (isNaN(x)) throw new Error(`${label} is not a number`);
 };
 
@@ -30,7 +30,6 @@ export function checkNaN (label, x) {
  * @param {Number} ratingsDev - ratings deviation
  */
 export function g(ratingsDev) {
-  console.log('\nmath:g');
   checkNaN('ratingsDev', ratingsDev);
 
   const pi2 = pow(PI, 2);
@@ -45,7 +44,6 @@ export function g(ratingsDev) {
  * @param {Competitor} comp
  */
 export function es(rating, comp) {
-  console.log('\nmath:es');
   checkNaN('rating', rating);
   checkNaN('comp.rating', comp.rating);
   checkNaN('comp.ratingsDev', comp.ratingsDev);

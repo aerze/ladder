@@ -53,9 +53,9 @@ export default class Competitor {
    * @param {Number} d2 
    */
   updatedRating(competitors, results, d2) {
-    console.log('updatedRating',  results);
     const { rating, ratingsDev } = this;
     const ratingsDev2 = pow(ratingsDev, 2);
+    console.log('Competitor::updatedMetrics::updatedRating():: ratings deviation squared', ratingsDev2);
     checkNaN('updatedRating.rating', rating);
 
     /**
@@ -64,21 +64,25 @@ export default class Competitor {
      * @param {String} result
      */
     const summand = (comp, result) => {
-      console.log('Competitor.updatedRating() => summand');
-      checkNaN('comp.rating', comp.rating);
-      checkNaN('comp.ratingsDev', comp.ratingsDev);
+      checkNaN('updatedRating.summand.comp.rating', comp.rating);
+      checkNaN('updatedRating.summand.comp.ratingsDev', comp.ratingsDev);
 
       const G = g(comp.ratingsDev);
       const ES = es(rating, comp);
+
+      console.log('Competitor::updatedMetrics::updatedRating::summand():: result', result);
       const score = SCORE_MAP[result];
-      console.log(score, result);
+      console.log('Competitor::updatedMetrics::updatedRating::summand():: score', score);
+
       return G * (score - ES);
     };
 
     const multiplier = (Q / (1 / ratingsDev2 + (1 / d2)));
+    console.log('Competitor::updatedMetrics::updatedRating():: multiplier', multiplier);
+
     const summands = competitors.map((comp, i) => summand(comp, results[i]));
+    console.log('Competitor::updatedMetrics::updatedRating():: summands', summands);
     checkNaN('updatedRating.multiplier', multiplier);
-    console.log('updatedRating.summands', summands);
 
     return rating + (multiplier * Σ(summands));
   }
@@ -110,19 +114,23 @@ export default class Competitor {
    * @returns {Object}
    */
   updatedMetrics(others, results, dates) {
-    console.log('Competitor:updatedMetrics');
-    console.log('dates', dates);
-    console.log('maxDate', max(...dates));
-    console.log('lastUpdate', this.lastUpdated);
-
+    console.log('Competitor::updatedMetrics():: updating metrics for', this.name);
     this.lastUpdated = dates
       ? max(this.lastUpdated, max(...dates))
       : this.lastUpdated;
     
     if (others) {
+      console.log('Competitor::updatedMetrics():: opponents found');
       const d2 = this.getDsq(others);
+      console.log('Competitor::updatedMetrics():: d squared', d2);
+
+      console.log('Competitor::updatedMetrics():: calculating ranking for', others.map(p => p.name), 'with', results);
       const rating = this.updatedRating(others, results, d2)
+      console.log('Competitor::updatedMetrics():: new rating', rating);
+
       const ratingsDev = this.updatedRatingsDev(d2);
+      console.log('Competitor::updatedMetrics():: new ratingsDev', ratingsDev);
+
       const lastUpdated = this.lastUpdated;
       checkNaN('updatedMetrics.rating', rating);
       checkNaN('updatedMetrics.ratingsDev', ratingsDev);
@@ -136,7 +144,6 @@ export default class Competitor {
 
 
   update({ rating, ratingsDev }) {
-    console.log('Competitor.update()');
     checkNaN('rating', rating);
     checkNaN('ratingsDev', ratingsDev);
     
