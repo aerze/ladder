@@ -29,6 +29,7 @@ export default class Ranking {
             const ratingPeriod = new RatingPeriod();
 
             uniquePlayerNames.forEach(name => ratingPeriod.addCompetitor(competitors[name]));
+            
             matches.forEach(match => {
               const player = competitors[match.player.name];
               const opponent = competitors[match.opponent.name];

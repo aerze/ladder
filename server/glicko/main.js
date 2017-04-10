@@ -34,11 +34,6 @@ export default function main () {
   // const matches = [match1, match2, match3, match4];
   const matches = [match1];
 
-  console.log('matches\n', match1, '\n\n\n\n\n');
-
-  // console.log(matches);
-  // console.dir(match1);
-
   const ratingPeriod = new RatingPeriod();
   
   competitors.forEach(comp => ratingPeriod.addCompetitor(comp));
@@ -46,7 +41,6 @@ export default function main () {
 
   ratingPeriod.makeNewRankings();
 
-  console.log('\n\n\n\n\n');
   for (const name in ratingPeriod.competitorLogs) {
     console.log(ratingPeriod.competitorLogs[name].newMetrics);
   }
